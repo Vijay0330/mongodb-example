@@ -13,6 +13,10 @@ const postSchema = mongoose.Schema({
         type : Number,
         required : true
     },
+    qty:{
+        type:Number,
+        required:true
+    },
     date : {
         type : Date,
         default : Date.now

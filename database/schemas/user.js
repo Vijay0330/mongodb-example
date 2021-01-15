@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  orders:{
+    type : Object,
+  },
   date: {
     type: Date,
     default: Date.now,
