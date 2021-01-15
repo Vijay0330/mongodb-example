@@ -10,4 +10,16 @@ router.post('/',userDetails.createUser);
 
 router.delete('/:userid',userDetails.deleteUser);
 
+//user names
+
+router.get('/names',userDetails.userName);
+
+
+//filter by age
+
+router.get('/age',userDetails.ageFilter);
+
+//filter by age limit
+
+router.get('/age/:age',userDetails.ageLimit);
 module.exports=router;

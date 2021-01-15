@@ -19,7 +19,7 @@ const agre = async(req,res)=>{
           ]
        );
        const dist = await Post.distinct("price");
-       res.json(post);
+       res.json(dist);
     }
     catch(err){
         res.json({status : "false" , message : "error"})
