@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Post = require("./schemas/posts");
 const User = require('./schemas/user');
 
+mongoose.set('useCreateIndex', true);
 //db connect
 
 const dbURI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`;
@@ -17,7 +18,7 @@ const dbOptions = {
 
   mongoose.connect(dbURI, dbOptions).then(()=>{console.log('connected db',process.env.DB_DATABASE_NAME)})
   .catch((err) => {
-    logger.error(err.message);
+    console.log(err.message);
   });
 
 

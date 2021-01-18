@@ -9,8 +9,18 @@ const buyOrder = async (req, res) => {
       { _id: id },
       { $set: { orders: { product: product, qty: qty } } }
     );
-
-    res.json(details);
+    
+    const buyProduct = await User.aggregate([
+      { $lookup:
+         {
+           from: 'Post',
+           localField: 'orders',
+           foreignField: 'title',
+           as: 'orderdetails'
+         }
+       }
+      ])
+    res.json(buyProduct);
   } catch (err) {
     res.json({ status: "false", message: "error" });
   }

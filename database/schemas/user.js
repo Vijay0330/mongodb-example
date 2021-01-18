@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const {isEmail} =require('validator');
 
 const userSchema = mongoose.Schema({
   frist_name: {
     type: String,
-    required: true,
+    required: [true,'name is required'],
+    minlength:[3,'need minimun 3 charector ']
   },
   last_name: {
     type: String,
@@ -11,14 +13,29 @@ const userSchema = mongoose.Schema({
   },
   age: {
     type: Number,
-    required: true,
+    required: [true,'age is required'],
+    min:[18,'not allowed for register here']
   },
   email: {
     type: String,
-    required: true,
+    required: [true,'E-mail is required'],
+    lowercase:true,
+    validate:[isEmail,'please enter valid E-mail'],
+    unique:true,
+  
   },
-  orders:{
-    type : Object,
+  orders: {
+    type: Object,
+  },
+  phone: {
+    type:String,
+    unique:true,
+    validate: {
+      validator: (v)=> {
+        return /\d{3}-\d{3}-\d{4}/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`
+    },
   },
   date: {
     type: Date,

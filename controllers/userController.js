@@ -1,11 +1,13 @@
 const User = require("../database").User;
 
+
 const getAllUsers = async (req, res) => {
   try {
-    const user = await User.find();
+    //not send phone number and email details
+    const user = await User.find().select('_id frist_name last_name age orders').exec();
     res.json(user);
   } catch (err) {
-    res.json({ status: "false", message: "error" });
+    res.json({ status: "false", message: err });
   }
 };
 
@@ -15,6 +17,7 @@ const createUser = async (req, res) => {
     last_name: req.body.last_name,
     age: req.body.age,
     email: req.body.email,
+    phone:req.body.phone,
   });
   newUser
     .save()
@@ -22,7 +25,8 @@ const createUser = async (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      res.json({ status: "false", message: "error" });
+      res.json({ status: "false", message: err });
+      console.log(err)
     });
 };
 
@@ -97,6 +101,7 @@ const ageLimit = async (req, res) => {
     res.json(details);
   } catch (err) {
     res.json({ status: "false", message: "error" });
+    console.log(err.properties);
   }
 };
 
