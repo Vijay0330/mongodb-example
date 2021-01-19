@@ -30,15 +30,17 @@ const storeAPost = async(req,res)=>{
     const post = new Post({
         title : req.body.title,
         description : req.body.description,
-        price:req.body.price
+        price:req.body.price,
+        color:req.body.color,
+        offer:req.body.offer,
+        qty:req.body.qty,
     });
-
     post.save()
     .then(data => {
         res.json(data);
     })
     .catch(err =>{
-        res.json({status : "false" , message : "error"})
+        res.json({status : "false" , message : err})
     })
 };
 

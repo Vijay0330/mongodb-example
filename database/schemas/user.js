@@ -43,6 +43,19 @@ const userSchema = mongoose.Schema({
   },
 });
 
+
+
+
+// userSchema.post('init', function(doc) {
+//   console.log('%s has been initialized from the db', doc._id);
+// });
+userSchema.post('validate', function(doc) {
+  console.log('%s has been validated (but not saved yet)', doc._id);
+});
+userSchema.post('save', (doc)=> {
+  console.log('%s has been saved', doc._id);
+});
 const userModel = mongoose.model("User-details", userSchema);
 
+userSchema.pre('save', () => console.log('Hello from pre save'));
 module.exports = userModel;

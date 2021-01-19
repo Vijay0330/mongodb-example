@@ -1,5 +1,24 @@
 const User = require("../database").User;
 
+const errorHandler =(err)=> {
+  const error = {email:'',phone:''};
+  if(err.code === 11000) {
+    console.log(Object.keys(err.keyValue))
+    if(Object.keys(err.keyValue).includes('email')) {
+      error['email']='email already registered';
+    }
+    if(Object.keys(err.keyValue).includes('phone')) {
+      error['phone'] = 'mobile number already registered';     
+    }
+  }
+  if(err.message.includes('User-details validation failed')) {
+    Object.values(err.errors).forEach(({properties})=>{
+      error[properties.path]=properties.message;
+    })
+    
+  }
+  return error;
+}
 
 const getAllUsers = async (req, res) => {
   try {
@@ -25,8 +44,8 @@ const createUser = async (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      res.json({ status: "false", message: err });
-      console.log(err)
+      res.json({ status: "false", message: errorHandler(err) });
+    //  console.log(err)
     });
 };
 
