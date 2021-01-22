@@ -1,5 +1,5 @@
 const User = require("../database").User;
-
+const Address = require('../database').Address;
 const errorHandler =(err)=> {
   const error = {email:'',phone:''};
   if(err.code === 11000) {
@@ -48,6 +48,21 @@ const createUser = async (req, res) => {
     //  console.log(err)
     });
 };
+//address
+const createAddress = async (req, res) => {
+  console.log(req.body)
+  const newUser = new Address({
+   house: req.body.house,
+    street: req.body.street,
+    city: req.body.city,
+    state: req.body.state,
+  });
+
+  newUser
+    .save();
+    res.json(newUser);
+   
+}
 
 // // delete a specific post from Db
 const deleteUser = async (req, res) => {
@@ -131,5 +146,7 @@ module.exports = {
   userName,
   findName,
   ageFilter,
-  ageLimit
+  ageLimit,
+  createAddress
+  
 };

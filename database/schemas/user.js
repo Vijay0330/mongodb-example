@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const {isEmail} =require('validator');
-
+const baseOptions = {
+  discriminatorKey: '__type',
+  collection:'UserD'
+  
+}
 const userSchema = mongoose.Schema({
   frist_name: {
     type: String,
@@ -41,7 +45,7 @@ const userSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+},baseOptions);
 
 
 
@@ -57,5 +61,13 @@ userSchema.post('save', (doc)=> {
 });
 const userModel = mongoose.model("User-details", userSchema);
 
-userSchema.pre('save', () => console.log('Hello from pre save'));
-module.exports = userModel;
+const Add = userModel.discriminator('Address',  mongoose.Schema({
+  house: { type: Number },
+  street: {type:String},
+  city:{type:String},
+  state:{type:String}
+}));
+
+
+
+module.exports = {userModel,Add};

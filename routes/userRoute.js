@@ -22,4 +22,6 @@ router.get('/age',userDetails.ageFilter);
 //filter by age limit
 
 router.get('/age/:age',userDetails.ageLimit);
+
+router.post('/addres',userDetails.createAddress)
 module.exports=router;

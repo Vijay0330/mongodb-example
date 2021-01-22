@@ -2,8 +2,14 @@ const mongoose = require("mongoose");
 
 //schemas
 const Post = require("./schemas/posts");
-const User = require('./schemas/user');
-
+const User = require('./schemas/user').userModel;
+const Order = require('./schemas/order');
+ const Address=require('./schemas/user').Add;
+ // const Address=require('./schemas/addres');
+const Base = require('./schemas/discriminatorEx').Base;
+const Test = require('./schemas/discriminatorEx').Order;
+const Customer =require('./schemas/discriminatorEx').Customer;
+const comments = require('./schemas/comments.populate');
 mongoose.set('useCreateIndex', true);
 //db connect
 
@@ -22,4 +28,4 @@ const dbOptions = {
   });
 
 
-module.exports = {Post,User};
+module.exports = {Post,User,Order,Base,Test,Customer,comments,Address};
